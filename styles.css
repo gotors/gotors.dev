@@ -74,6 +74,25 @@ a {
 }
 
 
+.site-title.has-back {
+  width: 100%;
+  padding-left: max(24px, calc((100% - 760px) / 2 + 16px));
+  position: relative;
+}
+
+.back-home {
+  position: absolute;
+  left: 24px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  transition: color 0.15s;
+}
+
+.back-home:hover {
+  color: var(--text);
+}
+
 .divider {
   border: 0;
   border-top: 1px solid var(--line);
