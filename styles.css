@@ -40,12 +40,62 @@ a {
   align-items: center;
   justify-content: space-between;
   height: 96px;
+  transition: all 0.25s ease;
 }
 
 .site-title h1 {
   margin: 0;
   font-size: clamp(1.6rem, 3.5vw, 2.4rem);
   letter-spacing: 0.06em;
+  transition: font-size 0.25s ease;
+}
+
+/* ── Sticky top nav ── */
+.site-nav-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.site-nav-sticky.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.site-nav-sticky-inner {
+  width: min(760px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-nav-sticky-inner h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+
+.site-nav-sticky .site-social {
+  gap: 14px;
+}
+
+.site-nav-sticky .site-social a {
+  font-size: 1rem;
 }
 
 /* Social icons next to DIEGO TORRES */
@@ -91,6 +141,29 @@ a {
 
 .back-home:hover {
   color: var(--text);
+}
+
+@media (max-width: 560px) {
+  .site-title.has-back {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .site-title.has-back h1 {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+
+  .back-home {
+    position: static;
+    flex-shrink: 0;
+  }
 }
 
 .divider {
@@ -276,6 +349,111 @@ p {
   max-width: 64ch;
 }
 
+/* ── Projects accordion ── */
+.project-group {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.project-group-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.97rem;
+  list-style: none;
+  user-select: none;
+  background: var(--soft);
+}
+
+.project-group-summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-chevron {
+  font-size: 0.75rem;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+
+details[open] .project-chevron {
+  transform: rotate(180deg);
+}
+
+.project-group-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.project-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.project-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.95rem;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  transition: color 0.15s;
+}
+
+.project-item:last-child {
+  border-bottom: none;
+}
+
+.project-item:hover {
+  color: var(--muted);
+}
+
+.project-item--plain {
+  cursor: default;
+}
+
+.project-item--plain:hover {
+  color: var(--text);
+}
+
+.project-name {
+  font-weight: 500;
+}
+
+.project-meta {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.project-ext {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-left: auto;
+}
+
 /* ── Footer ── */
 .footer {
   border: 0;
@@ -283,6 +461,76 @@ p {
   padding: 8px 0 0;
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+/* ── Stack grid ── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.stack-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stack-items {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .stack-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Blog post list ── */
+.blog-post-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.blog-post-item:last-child {
+  border-bottom: none;
+}
+
+.blog-post-date {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 0 0 2px;
+}
+
+.blog-post-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.blog-post-title a {
+  text-decoration: none;
+}
+
+.blog-post-title a:hover {
+  text-decoration: underline;
+}
+
+.blog-ext-icon {
+  font-size: 0.65rem;
+  color: var(--muted);
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.blog-post-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+  max-width: 60ch;
 }
 
 /* ── Mobile ── */
